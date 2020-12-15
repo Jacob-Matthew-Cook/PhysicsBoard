@@ -23,7 +23,6 @@ Pulley1.prototype.setup = function (gameState, gameGraphics) {
     var body1;
     var staticBody = new cp.Space().staticBody;
  
-
     var axisX = world.addShape(new cp.SegmentShape(world.staticBody, v(0, 0), v(2, 0), 0.005));
     axisX.setElasticity(1);
     axisX.setFriction(1);
@@ -202,7 +201,7 @@ Pulley1.prototype.setup = function (gameState, gameGraphics) {
         context.scale(pixelFactor, -pixelFactor);
 
         context.scale(1 / (pixelFactor / 2), -1 / (pixelFactor / 2));
-        context.fillText("A", pixelFactor / 2 * (this.body.p.x - 0.07), -pixelFactor / 2 * (this.body.p.y - 0.07));
+        context.fillText("", pixelFactor / 2 * (this.body.p.x - 0.07), -pixelFactor / 2 * (this.body.p.y - 0.07));
         context.scale(pixelFactor / 2, -pixelFactor / 2);
     };
 
@@ -234,7 +233,7 @@ Pulley1.prototype.setup = function (gameState, gameGraphics) {
         context.scale(pixelFactor, -pixelFactor);
 
         context.scale(1 / (pixelFactor/2), -1 / (pixelFactor/2));
-        context.fillText("B", pixelFactor/2 * (this.body.p.x-0.07), -pixelFactor/2 * (this.body.p.y-0.07));
+        context.fillText("A", pixelFactor/2 * (this.body.p.x-0.07), -pixelFactor/2 * (this.body.p.y-0.07));
         context.scale(pixelFactor/2, -pixelFactor/2);
     };
 
@@ -276,7 +275,7 @@ Pulley1.prototype.setup = function (gameState, gameGraphics) {
         context.scale(pixelFactor, -pixelFactor);
 
         context.scale(1 / (pixelFactor / 2), -1 / (pixelFactor / 2));
-        context.fillText("A", pixelFactor / 2 * (this.body.p.x - 0.07), -pixelFactor / 2 * (this.body.p.y - 0.07));
+        context.fillText("", pixelFactor / 2 * (this.body.p.x - 0.07), -pixelFactor / 2 * (this.body.p.y - 0.07));
         context.scale(pixelFactor / 2, -pixelFactor / 2);
     };
 
@@ -325,7 +324,6 @@ Pulley1.prototype.setup = function (gameState, gameGraphics) {
     world.addConstraint(new cp.PulleyJoint2(body3, staticBody, body4, hook, rev_pt3, rev_pt4, hook));
 
 
-
     var roof = world.addShape(new cp.SegmentShape(world.staticBody, v(0, h - 2 * radOuter), v(2, h - 2 * radOuter), 0.005));
     roof.setElasticity(1);
     roof.setFriction(1);
@@ -343,8 +341,8 @@ Pulley1.prototype.setup = function (gameState, gameGraphics) {
 
 Pulley1.prototype.step = function (gameState, gameDygraph, dataTimeStep, graphTimeStep) {
 
-    var shape1 = gameState.shapeArray[0];
-    var shape2 = gameState.shapeArray[2];
+    var shape1 = gameState.shapeArray[1];
+    var shape2 = gameState.shapeArray[3];
 
     var vx = shape1.body.vx;
     var vy = shape1.body.vy;
@@ -376,25 +374,25 @@ Pulley1.prototype.initializeDygraph = function (gameState, gameDygraph, graphID)
         document.getElementById(graphID),
         gameDygraph.data,
         {
-            labels: ['Time', 'Vleft,A', 'Hleft,A', 'Vright,A', 'Hright,A'],
+            labels: ['Time', 'V,A', 'H,A', 'V,B', 'H,B'],
             xlabel: 'Time (s)',
             ylabel: 'Speed (cm/s)',
             y2label: 'Displacement (cm)',
             series: {
-                'Vleft,A': {
+                'V,A': {
                     color: 'orange',
                     strokeWidth: 2
                 },
-                'Hleft,A': {
+                'H,A': {
                     color: 'blue',
                     strokeWidth: 2,
                     axis: 'y2'
                 },
-                'Vright,A': {
+                'V,B': {
                     color: 'orange',
                     strokeWidth: 2
                 },
-                'Hright,A': {
+                'H,B': {
                     color: 'blue',
                     strokeWidth: 2,
                     axis: 'y2'
@@ -453,7 +451,6 @@ Pulley1.prototype.addToDygraph = function (gameState, gameDygraph, dataTimeStep,
     if (gameDygraph.itr % graphMod == 0) {
         graph.updateOptions({ 'file': data });
     }
-
 }
 
 Pulley1.prototype.updateInitialParameters = function () {
@@ -468,24 +465,24 @@ Pulley1.prototype.updateInitialParameters = function () {
         '<td>Initial Height</td>' +
         '<td id=\"length-initial-1\">100 cm</td>' +
         '</tr>' +
-        //body1
+
         '<tr class=\'pendulum-1-init\'>' +
-        '<td>Mass<sub>Left Pulley,A</td>' +
+        '<td>Mass<sub>Left,A</td>' +
         '<td id=\"mass-initial-1\">150 g</td>' +
         '</tr>' +
 
         '<tr class=\'pendulum-2-init\'>' +
-        '<td>Mass<sub>Left Pulley,B</td>' +
+        '<td>Mass<sub>Right,A</td>' +
         '<td id=\"mass-initial-2\">100 g</td>' +
         '</tr>' +
 
         '<tr class=\'pendulum-1-init\'>' +
-        '<td>Mass<sub>Right Pulley,A</td>' +
+        '<td>Mass<sub>Left,B</td>' +
         '<td id=\"mass-initial-3\">250 g</td>' +
         '</tr>' +
 
         '<tr class=\'pendulum-2-init\'>' +
-        '<td>Mass<sub>Right Pulley,B</td>' +
+        '<td>Mass<sub>Right,B</td>' +
         '<td id=\"mass-initial-4\">200 g</td>' +
         '</tr>' +
 

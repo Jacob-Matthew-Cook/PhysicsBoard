@@ -1,2 +1,5 @@
 
 .vs/slnx.sqlite
+*.config
+.vs/PhysicsBoard/v16/.suo
+.vs/VSWorkspaceState.json
