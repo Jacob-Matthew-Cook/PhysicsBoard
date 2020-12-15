@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <link rel='stylesheet' href='style.css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.css" />
+
+    <title>Case 4: Rolling Cylinder</title>
+
+    <script src="Chipmunk_API/cp.js"></script>
+    <script src="Chipmunk_API/DrawingMethods.js"></script>
+    <script src="Chipmunk_API/PhysicsBoard.js"></script>
+
+    <script src="Chipmunk_Levels/RollingCylinder4.js"></script>
+    <!--script type="text/javascript" src="synchronizer.js"></script>-->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.js"></script>
+
+    <script type="text/javascript">
+        window.onload = function () {
+            var levelName = "RollingCylinder4"; //Level Object Name
+
+            //Simulation and Plotting Parameters
+            var timeStepSec = 1 / 1000;//Physics Engine Time Step
+            var dataStepSec = 1/100; //Time Interval Between Recorded Data Points
+            var graphPlotSec = 1/20; //Time Interval Between Regraphs
+            var plotTimeInterval = 10;//Time range on graph
+
+            //HTML Element IDs
+            var canvasName = "canvas";
+            var graphName = "graphDiv";
+
+            var visualizationOptions =
+            {
+                drawAppliedForce: false,
+                drawNormalAndFrictionForces: false,
+                drawConstraintForces: false,
+                drawGravityForce: false,
+                drawBoundingBox: false,
+                drawVelocity: true,
+                drawAngVel: true,
+                vectorScale: 0.01,
+                velocityScale: 0.5,
+                angVelScale: 0.01
+            };
+
+            PhysicsBoard(levelName, timeStepSec, dataStepSec, graphPlotSec, plotTimeInterval, canvasName, graphName, visualizationOptions);
+        };
+
+        </script>
+
+</head>
+<body class="main-text">
+    <div class='container'>
+        <!--<div style="display: grid; grid-template-columns: 3fr 1fr">-->
+        <!--<div style="margin:auto;width:1080px;padding:2px;border:1px solid #888;text-align:left">-->
+        <!--<canvas id="canvas" width="1080" height="720" tabindex='1'></canvas>-->
+            <div style="margin:1px;width:auto;padding:0px;text-align:left">
+                
+                <!-- The Canvas -->
+                <div style="margin:5px;width:auto;padding:2px;border:8px solid #888;text-align:left">
+                    <canvas id="canvas" width="700" height="500" tabindex='1'></canvas>
+                </div>
+
+                <!-- The Canvas -->
+                <div style="margin:5px;width:auto;padding:2px;text-align:center">
+
+                    <button class="control-btns" id="reset-button" onclick="resetLevel();">&#9724<br>(Reset)</button>
+                    <button class="control-btns" id="pause-button" onclick="pause();">&#10074&#10074<br>(Pause/Unpause)</button>
+                    <button class="control-btns" id="pause-button" onclick="onClickStep(0.010);">&#9658&#10074<br>(Step)</button>
+                    <button class="control-btns" id="start-button" onclick="play();">&#9658<br>(Play)</button>
+                    <button class="control-btns" id="start-button" onclick="slowMotion();">&#10074&#9658<br>(x1/2)</button>
+                    <button class="control-btns" id="start-button" onclick="fastForward();">&#9658&#9658<br>(x2)</button>
+                    &nbsp
+                    &nbsp
+                    &nbsp
+                    <button class="control-btns" id="pause-button" onclick="zoomIn();">&#10133<br>(Zoom In)</button>
+                    <button class="control-btns" id="pause-button" onclick="zoomOut();">&#10134<br>(Zoom Out)</button>
+                    <button class="control-btns" id="pause-button" onclick="recenter();">Center<br></button>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+
+            </div>
+            <div>
+                <div>
+                    <div style="text-align:center">
+                        <h3>Case 4</h3>
+                    </div>
+                    <br>
+
+                </div>
+
+                <div class='table-container'>
+                    <div id='live-update-table'>
+                        <div>
+                            <div class='main-text'>t: <span id='running-time'>0.000s</span></div>
+                        </div>
+                        <div>
+                            <div class='main-text' id="rollCyl-2-v">Speed<sub>Top</sub>: <span id='v2'>0.00m/s</span></div>
+                            <div class='main-text' id="rollCyl-1-v">Speed<sub>Bottom</sub>: <span id='v1'>0.00m/s</span></div>
+                        </div>
+                        <div>
+                            <div class='main-text' id="rollCyl-2-w">Ang. Vel.<sub>Top</sub>: <span id='w2'>0.0rad/s</span></div>
+                            <div class='main-text' id="rollCyl-1-w">Ang. Vel.<sub>Bottom</sub>: <span id='w1'>0.0rad/s</span></div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div id="graphDiv"
+                     style="width:600px; height:350px;">
+                </div>
+                <!--New Stuff-->
+                <br>
+                <table id='initial-values' class='values-table'>
+                    <tbody>
+                        <tr class='pendulum-1-init'>
+                            <td>Length</td>
+                            <td id="length-initial-1">null</td>
+                        </tr>
+                        <tr class='pendulum-1-init'>
+                            <td>Mass</td>
+                            <td id="mass-initial-1">null</td>
+                        </tr>
+                        <tr class='pendulum-1-init'>
+                            <td>Angle</td>
+                            <td id="angle-initial-1">null</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</body>
+</html>

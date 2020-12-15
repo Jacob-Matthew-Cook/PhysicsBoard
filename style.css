@@ -1,0 +1,413 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.container_r {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+body {
+    background-color: rgb(243, 240, 240);
+    font-family: 'Bookman Old Style';
+}
+
+.main-text {
+    font-family: 'Bookman Old Style';
+    margin: 10px;
+    font-size: 14px;
+}
+
+#height-1-text {
+    color: blue;
+    font-weight:bold;
+}
+#height-2-text {
+    color: red;
+    font-weight:bold;
+}
+
+#spool-1-up {
+    color: blue;
+    font-weight: bold;
+}
+#spool-1-down {
+    color: blue;
+    font-weight: bold;
+}
+#spool-1-right {
+    color: blue;
+    font-weight: bold;
+}
+
+#spool-1-norm {
+    color: black;
+    font-weight: bold;
+}
+
+#spool-1-fric {
+    color: red;
+    font-weight: bold;
+}
+
+
+
+#rollCyl-1-v {
+    color: rgb(239, 114, 21);
+    font-weight: bold;
+}
+
+#rollCyl-1-w {
+    color: blue;
+    font-weight: bold;
+}
+
+#rollCyl-2-v {
+    color: rgb(239, 114, 21);
+    font-weight: bold;
+}
+
+#rollCyl-2-w {
+    color: blue;
+    font-weight: bold;
+}
+
+
+
+
+#pulleyLeft-h {
+    color: blue;
+    font-weight: bold;
+}
+#pulleyRight-h {
+    color: blue;
+    font-weight: bold;
+}
+#pulleyLeft-v {
+    color: rgb(239, 114, 21);
+    font-weight: bold;
+}
+#pulleyRight-v {
+    color: rgb(239, 114, 21);
+    font-weight: bold;
+}
+
+
+
+h1 {
+    margin: 0;
+    padding: 20px 20px;
+    font-family: 'Bookman Old Style';
+    font-size: 50px;
+    font-weight: 100;
+    text-align: center;
+    background-color: #DC4405;
+    color: #fff;
+}
+
+h2 {
+    margin: 0;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-weight: 100;
+    background-color: #319df6;
+    color: #fff;
+}
+
+h3 {
+    margin: 0;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-weight: 100;
+    background-color: #319df6;
+    color: #fff;
+}
+
+
+#canvas {
+    display: inline-block;
+}
+
+    #canvas > canvas {
+        display: flex;
+        align-items: center;
+        max-width: 90%;
+        max-height: 60%;
+        margin: 20px 33px 1px 20px;
+        float: left;
+    }
+
+
+}
+table, th, td {
+    padding: 5px;
+    border: 2px solid black;
+    text-align: center;
+}
+
+    table.generic {
+        padding: 5px;
+        text-align: left;
+        border: 2px solid black;
+    }
+    table.whiteboard {
+        padding: 5px;
+        text-align: left;
+        border: 2px solid black;
+    }
+    table.values-table {
+        width: 80%;
+        font-size: 13px;
+        margin: auto;
+        border: 3px solid #000000;
+        border-collapse: collapse;
+    }
+
+#initial-values > td {
+    border: 2px solid #000000;
+    margin: 2px;
+    padding: 4px;
+}
+
+tr.pendulum-1-init > td {
+    border: 2px solid #000000;
+    background-color: #5669fc6b;
+    margin: 2px;
+    padding: 4px;
+}
+
+tr.pendulum-2-init > td {
+    border: 2px solid #000000;
+    background-color: #fc565866;
+    margin: 2px;
+    padding: 4px;
+}
+
+tr.both-pendulums-init > td {
+    border: 2px solid #000000;
+    background-color: #bf70db5c;
+    margin: 2px;
+    padding: 4px;
+}
+
+#live-update-table {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    justify-content: center;
+    border: 1px solid rgb(185, 185, 185);
+    border-spacing: 0;
+    border-collapse: collapse;
+    background-image: linear-gradient(to bottom,#c2c2c2 0,#f5f5f5 100%);
+    background-repeat: repeat-x;
+    border-color: #dcdcdc;
+    padding: 10px 10px;
+    top: 18px;
+    min-width: 230px;
+    max-width: 600px;
+    position: relative;
+    margin: auto;
+    align-items: flex-start;
+}
+
+
+.chart-container {
+    align-content: center;
+    display: inline-block;
+    position: relative;
+    top: 50px;
+    height: 40vh;
+    width: 25vw;
+    margin-bottom: 70px;
+}
+
+.control-btns {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    border: none;
+    color: black;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 5px 2px 9px rgba(0, 0, 0, 0.18);
+    position: relative;
+    top: 20px;
+}
+
+    .control-btns:focus {
+        outline: none;
+    }
+
+#pause-button {
+    background-color: rgb(211, 211, 211);
+}
+
+    #pause-button:hover {
+        background-color: rgb(197, 197, 59);
+    }
+
+#start-button {
+    background-color: rgb(17, 175, 48);
+}
+
+    #start-button:hover {
+        background-color: rgb(62, 224, 92);
+    }
+
+#reset-button {
+    background-color: rgb(173, 62, 62);
+}
+
+    #reset-button:hover {
+        background-color: rgb(134, 49, 49);
+    }
+
+
+/* Input slider */
+
+#input-table {
+    margin: 20px;
+    width: 20em;
+}
+
+.input-label {
+    width: 1em;
+    font-size: 15px;
+}
+
+.input-slide {
+    position: relative;
+    flex-shrink: 1;
+    order: 2;
+    display: block;
+    margin: 20px;
+}
+
+.noUi-connects {
+    background-color: rgb(97, 181, 255);
+}
+
+.noUi-tooltip {
+    font-size: 12px;
+}
+
+#num-weights-row {
+    margin-bottom: 10px
+}
+
+#graph-option-row {
+    margin-bottom: 10px
+}
+
+#num-weights {
+    font-size: 15px;
+    padding: 5px;
+    margin: 10px;
+}
+
+#graph-options {
+    font-size: 15px;
+    padding: 5px;
+    margin: 10px;
+}
+
+.pendulum-2-input .noUi-connects {
+    background-color: rgb(250, 75, 75);
+}
+
+#length-slider .noUi-connects {
+    background-color: rgb(150, 50, 150)
+}
+
+#cor-slider .noUi-connects {
+    background-color: rgb(150, 50, 150)
+}
+
+
+
+
+/* Laptop screens 1176 */
+/* Only the chart is messed up at this width */
+@media screen and (max-width : 1176px) {
+    .chart-container {
+        width: 70vw;
+    }
+}
+
+
+/* Medium Screens */
+@media screen and (max-width : 992px) {
+    #canvas > canvas {
+        display: flex;
+        align-items: center;
+        max-width: 95%;
+        max-height: 60%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    #live-update-table {
+        top: 0px;
+    }
+
+    .chart-container {
+        position: relative;
+        align-items: center;
+        float: left;
+        width: 90vw;
+        height: 40vh;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+}
+
+/* Tablet  */
+@media screen and (max-width : 768px) and (min-width: 486px) {
+    #live-update-table {
+        width: 340px;
+    }
+}
+
+
+/* Mobile for table & buttons*/
+@media screen and (max-width: 485px) {
+    .main-text {
+        font-size: 15px;
+    }
+
+    #live-update-table {
+        width: 330px;
+    }
+
+    .table-container {
+        position: relative;
+        display: flex;
+        float: right;
+        top: 2px;
+    }
+
+    .button-group {
+        position: relative;
+        display: block;
+        float: right;
+        top: 10px;
+        left: -50%;
+    }
+
+        .button-group > .control-btns {
+            font-size: 15px;
+            position: relative;
+            left: 50%;
+        }
+}

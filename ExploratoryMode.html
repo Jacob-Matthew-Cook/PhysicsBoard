@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <link rel='stylesheet' href='style.css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/13.0.0/nouislider.css">
+
+    <title>Exploratory Mode: Pendulums</title>
+
+    <script src="Chipmunk_API/cp.js"></script>
+    <script src="Chipmunk_API/DrawingMethods.js"></script>
+    <script src="Chipmunk_API/PhysicsBoard.js"></script>
+
+    <script src="Chipmunk_Levels/Exploratory.js"></script>
+    <!--script type="text/javascript" src="synchronizer.js"></script>-->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/13.0.0/nouislider.js"></script>
+
+
+    <script type="text/javascript">
+        var run;
+        window.onload = function () {
+
+            var levelName = "Exploratory"; //Level Object Name
+
+            //Simulation and Plotting Parameters
+            var timeStepSec = 1 / 10000; //Physics Engine Time Step
+            var dataStepSec = 20 / 10000; //Time Interval Between Recorded Data Points
+            var graphPlotSec = 1 / 25; //Time Interval Between Regraphs
+            var plotTimeInterval = 20;//Time range on graph
+
+            //HTML Element IDs
+            var canvasName = "canvas";
+            var graphName = "graphDiv";
+
+            var visualizationOptions =
+            {
+                drawAppliedForce: false,
+                drawNormalAndFrictionForces: false,
+                drawConstraintForces: false,
+                drawGravityForce: false,
+                drawVelocity: false,
+                vectorScale: 0.002,
+                velocityScale: 1
+            };
+
+
+            initializeSliders();
+            PhysicsBoard(levelName, timeStepSec, dataStepSec, graphPlotSec, plotTimeInterval, canvasName, graphName, visualizationOptions);
+            initializeSliderUpdates()
+        };
+
+    </script>
+
+
+
+</head>
+<body class="main-text">
+    <div class='container'>
+        <!--<div style="display: grid; grid-template-columns: 3fr 1fr">-->
+        <!--<div style="margin:auto;width:1080px;padding:2px;border:1px solid #888;text-align:left">-->
+        <!--<canvas id="canvas" width="1080" height="720" tabindex='1'></canvas>-->
+        <div style="margin:1px;width:auto;padding:0px;text-align:left">
+
+            <!-- The Canvas -->
+            <div style="margin:5px;width:auto;padding:2px;border:8px solid #888;text-align:left">
+                <canvas id="canvas" width="700" height="500" tabindex='1'></canvas>
+            </div>
+
+            <!-- The Canvas -->
+            <div style="margin:5px;width:auto;padding:2px;text-align:center">
+
+                <button class="control-btns" id="reset-button" onclick="resetLevel();">&#9724<br>(Reset)</button>
+                <button class="control-btns" id="pause-button" onclick="pause();">&#10074&#10074<br>(Pause/Unpause)</button>
+                <button class="control-btns" id="pause-button" onclick="onClickStep(0.005);">&#9658&#10074<br>(Step)</button>
+                <button class="control-btns" id="start-button" onclick="play();">&#9658<br>(Play)</button>
+                <button class="control-btns" id="start-button" onclick="slowMotion();">&#10074&#9658<br>(x1/2)</button>
+                <button class="control-btns" id="start-button" onclick="fastForward();">&#9658&#9658<br>(x2)</button>
+                &nbsp
+                &nbsp
+                &nbsp
+                <button class="control-btns" id="pause-button" onclick="zoomIn();">&#10133<br>(Zoom In)</button>
+                <button class="control-btns" id="pause-button" onclick="zoomOut();">&#10134<br>(Zoom Out)</button>
+                <button class="control-btns" id="pause-button" onclick="recenter();">Center<br></button>
+                <br>
+                <br>
+                <br>
+            </div>
+
+        </div>
+        <div>
+            <table id='input-table'>
+                <tr id="num-weights-radio-row">
+                    <td class='input-label'># of Weights</td>
+                    <td>
+                        <input type="radio" id="one" name="number-of-weights" value="1">
+                        <label for="one">1</label><br>
+                        <input type="radio" id="two" name="number-of-weights" value="2" checked>
+                        <label for="two">2</label><br>
+                    </td>
+                </tr>
+                <tr id="graph-option-row">
+                    <td class='input-label'>Graph Option</td>
+                    <td>
+                        <select id="graph-options">
+                            <option value="Height">Height</option>
+                            <option value="Angle">Angle</option>
+                            <option value="Velocity">Velocity</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='input-label'>Length (m)</td>
+                    <td><div class='input-slide' id='length-slider'></div></td>
+                </tr>
+                <tr>
+                    <td class='input-label'>Mass 1 (g)</td>
+                    <td><div class='input-slide' id='mass-slider'></div></td>
+                </tr>
+                <tr>
+                    <td class='input-label'>Angle 1 (deg)</td>
+                    <td><div class='input-slide' id='angle-slider'></div></td>
+                </tr>
+                <!-- Input sliders for a second pendulum -->
+                <tr class='pendulum-2-input'>
+                    <td class='input-label '>Mass 2 (g)</td>
+                    <td><div class='input-slide' id='mass-2-slider'></div></td>
+                </tr>
+                <tr class='pendulum-2-input'>
+                    <td class='input-label '>Angle 2 (deg) </td>
+                    <td><div class='input-slide' id='angle-2-slider'></div></td>
+                </tr>
+                <tr class='pendulum-2-input'>
+                    <td class='input-label '>Coef of Restitution</td>
+                    <td><div class='input-slide' id='cor-slider'></div></td>
+                </tr>
+            </table>
+            </div>
+        <div>
+            <div>
+                <div style="text-align:center">
+                    <h3>Exploratory Mode</h3>
+                </div>
+                <br>
+
+            </div>
+
+            <div class='table-container'>
+                <div id='live-update-table'>
+                    <div>
+                        <div class='main-text'>t: <span id='running-time'>0.000s</span></div>
+                    </div>
+                    <div>
+                        <div class='main-text' id="height-1-text">Height<sub>1</sub>: <span id='pendulum-param-1'>35.0cm</span></div>
+                    </div>
+                    <div>
+                        <div class='main-text' id="height-2-text">Height<sub>2</sub>: <span id='pendulum-param-2'>N/A</span></div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div id="graphDiv"
+                 style="width:500px; height:400px;">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
