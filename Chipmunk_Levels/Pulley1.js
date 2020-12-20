@@ -205,8 +205,8 @@ Pulley1.prototype.setup = function (gameState, gameGraphics) {
         context.scale(pixelFactor / 2, -pixelFactor / 2);
     };
 
-    shape2.fillStyle = function () { return 'rgba(240, 60, 60, 1)'; };
-    shape2.strokeStyle = function () { return 'rgb(200,0,0)'; };
+    shape2.fillStyle = function () { return 'rgba(80, 80, 200, 1)'; };
+    shape2.strokeStyle = function () { return 'rgb(0,0,160)'; };
     shape2.draw = function (context) {
         context.beginPath();
 
@@ -247,8 +247,8 @@ Pulley1.prototype.setup = function (gameState, gameGraphics) {
     shape3.setFriction(1);
     shape3.setLayers(SHAPES);
 
-    shape3.fillStyle = function () { return 'rgba(80, 80, 200, 1)'; };
-    shape3.strokeStyle = function () { return 'rgb(0,0,160)'; };
+    shape3.fillStyle = function () { return 'rgba(240, 60, 60, 1)'; };
+    shape3.strokeStyle = function () { return 'rgb(200,0,0)'; };
     shape3.draw = function (context) {
         context.beginPath();
 
@@ -380,22 +380,24 @@ Pulley1.prototype.initializeDygraph = function (gameState, gameDygraph, graphID)
             y2label: 'Displacement (cm)',
             series: {
                 'V,A': {
-                    color: 'orange',
+                    color: 'blue',
                     strokeWidth: 2
                 },
                 'H,A': {
                     color: 'blue',
                     strokeWidth: 2,
-                    axis: 'y2'
+                    axis: 'y2',
+                    strokePattern: Dygraph.DASHED_LINE
                 },
                 'V,B': {
-                    color: 'orange',
+                    color: 'red',
                     strokeWidth: 2
                 },
                 'H,B': {
-                    color: 'blue',
+                    color: 'red',
                     strokeWidth: 2,
-                    axis: 'y2'
+                    axis: 'y2',
+                    strokePattern: Dygraph.DASHED_LINE
                 }
             },
             axes: {
@@ -407,12 +409,14 @@ Pulley1.prototype.initializeDygraph = function (gameState, gameDygraph, graphID)
                 y: {
                     valueFormatter: function (y) {
                         return myRound(y, 1) + 'cm/s';
-                    }
+                    },
+                    valueRange: [0, 200]
                 },
                 y2: {
                     valueFormatter: function (y) {
                         return myRound(y, 1) + 'cm';
-                    }
+                    },
+                    valueRange: [100, 200]
                 }
             }
         }          // options
@@ -467,22 +471,22 @@ Pulley1.prototype.updateInitialParameters = function () {
         '</tr>' +
 
         '<tr class=\'pendulum-1-init\'>' +
-        '<td>Mass<sub>Left,A</td>' +
+        '<td>Mass<sub>A,L</td>' +
         '<td id=\"mass-initial-1\">150 g</td>' +
         '</tr>' +
 
-        '<tr class=\'pendulum-2-init\'>' +
-        '<td>Mass<sub>Right,A</td>' +
+        '<tr class=\'pendulum-1-init\'>' +
+        '<td>Mass<sub>A,R</td>' +
         '<td id=\"mass-initial-2\">100 g</td>' +
         '</tr>' +
 
-        '<tr class=\'pendulum-1-init\'>' +
-        '<td>Mass<sub>Left,B</td>' +
+        '<tr class=\'pendulum-2-init\'>' +
+        '<td>Mass<sub>B,L</td>' +
         '<td id=\"mass-initial-3\">250 g</td>' +
         '</tr>' +
 
         '<tr class=\'pendulum-2-init\'>' +
-        '<td>Mass<sub>Right,B</td>' +
+        '<td>Mass<sub>B,R</td>' +
         '<td id=\"mass-initial-4\">200 g</td>' +
         '</tr>' +
 

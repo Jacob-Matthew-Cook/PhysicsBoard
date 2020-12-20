@@ -1,5 +1,5 @@
 var Pulley4 = function () {
-  this.maxDuration = 0.95;
+  this.maxDuration = 0.56;
 };
 
 Pulley4.prototype.setNiceViewCenter = function (gameGraphics, canvas) {
@@ -201,12 +201,12 @@ Pulley4.prototype.setup = function (gameState, gameGraphics) {
         context.scale(pixelFactor, -pixelFactor);
 
         context.scale(1 / (pixelFactor / 2), -1 / (pixelFactor / 2));
-        context.fillText("A", pixelFactor / 2 * (this.body.p.x - 0.07), -pixelFactor / 2 * (this.body.p.y - 0.07));
+        context.fillText("", pixelFactor / 2 * (this.body.p.x - 0.07), -pixelFactor / 2 * (this.body.p.y - 0.07));
         context.scale(pixelFactor / 2, -pixelFactor / 2);
     };
 
-    shape2.fillStyle = function () { return 'rgba(240, 60, 60, 1)'; };
-    shape2.strokeStyle = function () { return 'rgb(200,0,0)'; };
+    shape2.fillStyle = function () { return 'rgba(80, 80, 200, 1)'; };
+    shape2.strokeStyle = function () { return 'rgb(0,0,160)'; };
     shape2.draw = function (context) {
         context.beginPath();
 
@@ -233,7 +233,7 @@ Pulley4.prototype.setup = function (gameState, gameGraphics) {
         context.scale(pixelFactor, -pixelFactor);
 
         context.scale(1 / (pixelFactor/2), -1 / (pixelFactor/2));
-        context.fillText("B", pixelFactor/2 * (this.body.p.x-0.07), -pixelFactor/2 * (this.body.p.y-0.07));
+        context.fillText("A", pixelFactor/2 * (this.body.p.x-0.07), -pixelFactor/2 * (this.body.p.y-0.07));
         context.scale(pixelFactor/2, -pixelFactor/2);
     };
 
@@ -247,8 +247,8 @@ Pulley4.prototype.setup = function (gameState, gameGraphics) {
     shape3.setFriction(1);
     shape3.setLayers(SHAPES);
 
-    shape3.fillStyle = function () { return 'rgba(80, 80, 200, 1)'; };
-    shape3.strokeStyle = function () { return 'rgb(0,0,160)'; };
+    shape3.fillStyle = function () { return 'rgba(240, 60, 60, 1)'; };
+    shape3.strokeStyle = function () { return 'rgb(200,0,0)'; };
     shape3.draw = function (context) {
         context.beginPath();
 
@@ -275,7 +275,7 @@ Pulley4.prototype.setup = function (gameState, gameGraphics) {
         context.scale(pixelFactor, -pixelFactor);
 
         context.scale(1 / (pixelFactor / 2), -1 / (pixelFactor / 2));
-        context.fillText("A", pixelFactor / 2 * (this.body.p.x - 0.07), -pixelFactor / 2 * (this.body.p.y - 0.07));
+        context.fillText("", pixelFactor / 2 * (this.body.p.x - 0.07), -pixelFactor / 2 * (this.body.p.y - 0.07));
         context.scale(pixelFactor / 2, -pixelFactor / 2);
     };
 
@@ -342,8 +342,8 @@ Pulley4.prototype.setup = function (gameState, gameGraphics) {
 
 Pulley4.prototype.step = function (gameState, gameDygraph, dataTimeStep, graphTimeStep) {
 
-    var shape1 = gameState.shapeArray[0];
-    var shape2 = gameState.shapeArray[2];
+    var shape1 = gameState.shapeArray[1];
+    var shape2 = gameState.shapeArray[3];
 
     var vx = shape1.body.vx;
     var vy = shape1.body.vy;
@@ -375,28 +375,30 @@ Pulley4.prototype.initializeDygraph = function (gameState, gameDygraph, graphID)
         document.getElementById(graphID),
         gameDygraph.data,
         {
-            labels: ['Time', 'Vleft,A', 'Hleft,A', 'Vright,A', 'Hright,A'],
+            labels: ['Time', 'V,A', 'H,A', 'V,B', 'H,B'],
             xlabel: 'Time (s)',
             ylabel: 'Speed (cm/s)',
             y2label: 'Displacement (cm)',
             series: {
-                'Vleft,A': {
-                    color: 'orange',
+                'V,A': {
+                    color: 'blue',
                     strokeWidth: 2
                 },
-                'Hleft,A': {
+                'H,A': {
                     color: 'blue',
                     strokeWidth: 2,
-                    axis: 'y2'
+                    axis: 'y2',
+                    strokePattern: Dygraph.DASHED_LINE
                 },
-                'Vright,A': {
-                    color: 'orange',
+                'V,B': {
+                    color: 'red',
                     strokeWidth: 2
                 },
-                'Hright,A': {
-                    color: 'blue',
+                'H,B': {
+                    color: 'red',
                     strokeWidth: 2,
-                    axis: 'y2'
+                    axis: 'y2',
+                    strokePattern: Dygraph.DASHED_LINE
                 }
             },
             axes: {
@@ -408,12 +410,14 @@ Pulley4.prototype.initializeDygraph = function (gameState, gameDygraph, graphID)
                 y: {
                     valueFormatter: function (y) {
                         return myRound(y, 1) + 'cm/s';
-                    }
+                    },
+                    valueRange: [0, 360]
                 },
                 y2: {
                     valueFormatter: function (y) {
                         return myRound(y, 1) + 'cm';
-                    }
+                    },
+                    valueRange: [100, 190]
                 }
             }
         }          // options
@@ -469,22 +473,22 @@ Pulley4.prototype.updateInitialParameters = function () {
         '</tr>' +
         //body1
         '<tr class=\'pendulum-1-init\'>' +
-        '<td>Mass<sub>Left Pulley,A</td>' +
+        '<td>Mass<sub>A,L</td>' +
         '<td id=\"mass-initial-1\">200 g</td>' +
         '</tr>' +
 
-        '<tr class=\'pendulum-2-init\'>' +
-        '<td>Mass<sub>Left Pulley,B</td>' +
+        '<tr class=\'pendulum-1-init\'>' +
+        '<td>Mass<sub>A,R</td>' +
         '<td id=\"mass-initial-2\">50 g</td>' +
         '</tr>' +
 
-        '<tr class=\'pendulum-1-init\'>' +
-        '<td>Mass<sub>Right Pulley,A</td>' +
+        '<tr class=\'pendulum-2-init\'>' +
+        '<td>Mass<sub>B,L</td>' +
         '<td id=\"mass-initial-3\">250 g</td>' +
         '</tr>' +
 
         '<tr class=\'pendulum-2-init\'>' +
-        '<td>Mass<sub>Right Pulley,B</td>' +
+        '<td>Mass<sub>B,R</td>' +
         '<td id=\"mass-initial-4\">150 g</td>' +
         '</tr>' +
 

@@ -82,20 +82,20 @@ body {
 
 
 
-#pulleyLeft-h {
+#pulleyA-h {
     color: blue;
     font-weight: bold;
 }
-#pulleyRight-h {
+#pulleyA-v {
     color: blue;
     font-weight: bold;
 }
-#pulleyLeft-v {
-    color: rgb(239, 114, 21);
+#pulleyB-h {
+    color: red;
     font-weight: bold;
 }
-#pulleyRight-v {
-    color: rgb(239, 114, 21);
+#pulleyB-v {
+    color: red;
     font-weight: bold;
 }
 
