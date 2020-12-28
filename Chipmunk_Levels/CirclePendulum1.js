@@ -83,19 +83,7 @@ CirclePendulum1.prototype.setup = function (gameState, gameGraphics) {
                 context.lineWidth = oldLineWidth;
             }
         }
-        /*
-        context.scale(1 / pixelFactor, -1 / pixelFactor);
-        context.font = "1px Arial";
-        context.fillText("Q", pixelFactor * this.tc.x, -pixelFactor * this.tc.y);
-        context.scale(pixelFactor, -pixelFactor);
-        */
     }
-    /*
-    cp.SegmentShape.prototype.draw = function (context) {
-
-    };
-    */
-
 
     //set all mathematical quantities
     var l = 0.5;  // 0.510;
@@ -167,19 +155,6 @@ CirclePendulum1.prototype.setup = function (gameState, gameGraphics) {
     roof.setElasticity(1);
     roof.setFriction(1);
     roof.setLayers(UNHITTABLE);
-
-
-    /*
-    var canvas = document.getElementById("canvas");
-    var context = canvas.getContext("2d");
-    var pixelFactor = 10;
-
-    context.scale(1 / pixelFactor, -1 / pixelFactor);
-    context.fillStyle = "blue";
-    context.font = "1px Arial";
-    context.fillText("Q", pixelFactor * this.tc.x, -pixelFactor * this.tc.y);
-    context.scale(pixelFactor, -pixelFactor);
-    */
 
     var t1 = 0;
     var h1 = 0.25;

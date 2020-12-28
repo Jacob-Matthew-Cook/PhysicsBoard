@@ -672,7 +672,7 @@ function PhysicsBoard(levelToLoad, inputTimeStep, inputDataTimeStep, inputGraphT
         gameGraphics.fpsQueue = [];
         initializeLevel(gameState.currentTest.constructor.name);
 
-        return resetLevel
+        return resetLevelFunction
     }
 
     resetLevel = resetLevelFunction;
