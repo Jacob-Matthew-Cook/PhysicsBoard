@@ -1,6 +1,6 @@
 //Level: Pendulum
 var Pulley1 = function () {
-  this.maxDuration = 0.95;
+  this.maxDuration = 0.94;
 };
 
 Pulley1.prototype.setNiceViewCenter = function (gameGraphics, canvas) {

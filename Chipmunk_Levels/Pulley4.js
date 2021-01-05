@@ -1,5 +1,5 @@
 var Pulley4 = function () {
-  this.maxDuration = 0.56;
+  this.maxDuration = 0.54;
 };
 
 Pulley4.prototype.setNiceViewCenter = function (gameGraphics, canvas) {
